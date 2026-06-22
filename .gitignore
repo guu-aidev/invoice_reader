@@ -1,0 +1,24 @@
+# 環境変数（APIキー等の秘密情報）
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# アップロード/出力（実行時生成。サンプルのみ追跡）
+data/uploads/
+
+# IDE
+.vscode/
+.idea/
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
