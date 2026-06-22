@@ -57,7 +57,7 @@ with st.sidebar:
         ["経費精算書", "会計仕訳（汎用）"],
         index=0,
         help="経費精算書＝会社へ提出用 / 会計仕訳＝会計ソフト取込用（税率別）。"
-        "freee・マネーフォワード・弥生の専用形式は今後追加予定。",
+        "freee・マネーフォワード・弥生などの専用形式にも拡張できる設計にしています。",
     )
 
 # ─────────────────────────────────────────
@@ -95,15 +95,20 @@ receipts: list[Receipt] = st.session_state.receipts
 filenames: list[str] = st.session_state.filenames
 
 if receipts:
-    # 編集用のテーブルを組み立て
+    # 編集用のテーブルを組み立て（状態列で要確認を一目で分かるように）
     rows = []
+    review_count = 0
     for fname, r in zip(filenames, receipts):
         ok, msg = verify_totals(r)
-        note = "OK" if ok else f"⚠ {msg}"
+        needs_review = (not ok) or bool(r.confidence_notes)
+        if needs_review:
+            review_count += 1
+        detail = "" if ok else msg
         if r.confidence_notes:
-            note += f" / {r.confidence_notes}"
+            detail = f"{detail} / {r.confidence_notes}" if detail else r.confidence_notes
         rows.append(
             {
+                "状態": "⚠️" if needs_review else "✅",
                 "ファイル": fname,
                 "日付": r.used_date,
                 "支払先": r.vendor_name,
@@ -113,7 +118,7 @@ if receipts:
                 "勘定科目": r.suggested_account,
                 "摘要": r.description,
                 "支払方法": r.payment_method or "",
-                "要確認": note,
+                "要確認": detail or "OK",
             }
         )
     df = pd.DataFrame(rows)
@@ -121,14 +126,25 @@ if receipts:
     # 勘定科目ドロップダウンの選択肢（AIの提案が候補外でも選べるよう合わせる）
     account_options = list(dict.fromkeys(DEFAULT_ACCOUNTS + [r.suggested_account for r in receipts]))
 
+    # サマリ（要確認の件数を上部に表示）
+    if review_count:
+        st.warning(
+            f"⚠️ {review_count} 件が要確認です（金額不一致 または 読み取りが不確かな行）。"
+            "確認・修正してからダウンロードしてください。"
+        )
+    else:
+        st.success("✅ 全件 読み取りOK")
+
     st.subheader("読み取り結果（セルを直接編集できます）")
+    st.caption("「状態」列の見出しをクリックすると ⚠️ を上にまとめられます。")
     edited = st.data_editor(
         df,
         use_container_width=True,
         hide_index=True,
         num_rows="fixed",
-        disabled=["ファイル", "消費税", "要確認"],  # これらは編集不可
+        disabled=["状態", "ファイル", "消費税", "要確認"],  # これらは編集不可
         column_config={
+            "状態": st.column_config.TextColumn("状態", width="small", help="⚠️=要確認 / ✅=OK"),
             "勘定科目": st.column_config.SelectboxColumn("勘定科目", options=account_options, required=True),
             "税込合計": st.column_config.NumberColumn("税込合計", format="%d", min_value=0),
             "登録番号": st.column_config.TextColumn("登録番号", help="適格請求書発行事業者の登録番号 T+13桁"),
