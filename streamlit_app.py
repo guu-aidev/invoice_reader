@@ -54,11 +54,18 @@ with st.sidebar:
     )
     output_format = st.selectbox(
         "出力形式",
-        ["経費精算書", "会計仕訳（汎用）"],
+        ["経費精算書", "freee", "マネーフォワード クラウド", "弥生"],
         index=0,
-        help="経費精算書＝会社へ提出用 / 会計仕訳＝会計ソフト取込用（税率別）。"
-        "freee・マネーフォワード・弥生などの専用形式にも拡張できる設計にしています。",
+        help="経費精算書＝会社へ提出用。"
+        "freee・マネーフォワード クラウド・弥生などの会計ソフト専用形式にも"
+        "拡張できる設計にしています。",
     )
+    if output_format != "経費精算書":
+        st.info(
+            f"「{output_format}」専用フォーマットは、各社の取込仕様に合わせて"
+            "拡張できる設計にしていますが、本ポートフォリオではデモのため未実装です。"
+            "「経費精算書」を選ぶとCSVを出力できます。"
+        )
 
 # ─────────────────────────────────────────
 # 1. アップロード → 読み取り
@@ -165,19 +172,20 @@ if receipts:
     # CSVダウンロード（サイドバーで選んだ出力形式で1ファイル出力）
     st.subheader("CSVダウンロード")
     if output_format == "経費精算書":
-        out_df = csv_writer.expense_report_df(receipts)
-        out_name = "経費精算書.csv"
-    else:  # 会計仕訳（汎用）
-        out_df = csv_writer.accounting_df(receipts)
-        out_name = "会計仕訳.csv"
-    st.download_button(
-        "⬇ CSVをダウンロード",
-        data=csv_writer.df_to_csv_bytes(out_df),
-        file_name=out_name,
-        mime="text/csv",
-        type="primary",
-        use_container_width=True,
-    )
-    st.caption(f"出力形式: 「{output_format}」（サイドバーで変更できます）")
+        st.download_button(
+            "⬇ CSVをダウンロード",
+            data=csv_writer.df_to_csv_bytes(csv_writer.expense_report_df(receipts)),
+            file_name="経費精算書.csv",
+            mime="text/csv",
+            type="primary",
+            use_container_width=True,
+        )
+        st.caption("出力形式: 「経費精算書」（サイドバーで変更できます）")
+    else:
+        # freee / マネーフォワード クラウド / 弥生 などの会計ソフト専用形式（デモのため未実装）
+        st.info(
+            f"「{output_format}」専用フォーマットは未実装です。"
+            "サイドバーで「経費精算書」を選ぶとCSVをダウンロードできます。"
+        )
 else:
     st.info("レシートの画像またはPDFをアップロードして「読み取る」を押してください。")
