@@ -28,6 +28,11 @@ st.markdown(
     <style>
       html, body, [class*="st-"], .stMarkdown, .stDataFrame { font-size: 1.12rem; }
       [data-testid="stSidebar"] * { font-size: 1.08rem; }
+      h1 { font-size: 2.1rem; }   /* タイトルを少し小さく（既定 ~2.75rem） */
+      /* メイン部分の左右・上の余白を少し詰める */
+      [data-testid="stMainBlockContainer"], .block-container {
+        padding-top: 2.5rem; padding-left: 2.5rem; padding-right: 2.5rem;
+      }
     </style>
     """,
     unsafe_allow_html=True,
