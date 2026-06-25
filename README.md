@@ -67,16 +67,21 @@ ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxx
 
 **4. レシートを読み取って CSV を出力**
 
-起動直後の画面：
+**① レシート画像 / PDF をアップロードする**（複数可・スマホ写真OK）
+
+「Upload」ボタンから選んでも、ファイルを枠内にドラッグ&ドロップしてもアップロードできます。
 
 <img src="docs/screenshot-home.png" alt="起動直後の画面" width="560">
 
-1. 「レシート画像 / PDF をアップロード」にファイルを置く（複数可・スマホ写真OK）
-2. 「📷 N件を読み取る」を押す → AIが項目を抽出して表に表示
-3. 表で内容を確認・修正（勘定科目はドロップダウン、要確認は ⚠️ で表示）
-4. 「⬇ CSVをダウンロード」で経費精算書CSVを保存
 
-読み取り結果の確認・修正からCSV出力まで：
+**② 〇件を読み取るボタンを押す**
+
+<img src="docs/screenshot-upload.png" alt="ファイルをアップロードした状態" width="560">
+
+
+**③ AIが項目を抽出 → 表で確認・修正**
+
+**④「⬇ CSVをダウンロード」で経費精算書CSVを保存**
 
 <img src="docs/screenshot-result.png" alt="読み取り結果とCSVダウンロード" width="560">
 
