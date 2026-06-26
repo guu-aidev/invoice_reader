@@ -71,19 +71,19 @@ ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxx
 
 「Upload」ボタンから選んでも、ファイルを枠内にドラッグ&ドロップしてもアップロードできます。
 
-<img src="docs/screenshot-home.png" alt="起動直後の画面" width="560">
+<img src="docs/screenshot-home.png" alt="起動直後の画面" width="600">
 
 
 **② 〇件を読み取るボタンを押す**
 
-<img src="docs/screenshot-upload.png" alt="ファイルをアップロードした状態" width="560">
+<img src="docs/screenshot-upload.png" alt="ファイルをアップロードした状態" width="600">
 
 
 **③ AIが項目を抽出 → 表で確認・修正**
 
 **④「⬇ CSVをダウンロード」で経費精算書CSVを保存**
 
-<img src="docs/screenshot-result.png" alt="読み取り結果とCSVダウンロード" width="560">
+<img src="docs/screenshot-result.png" alt="読み取り結果とCSVダウンロード" width="600">
 
 ## 注意
 
