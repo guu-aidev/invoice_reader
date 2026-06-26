@@ -6,12 +6,12 @@
 
 ## デモ
 
+<img src="docs/demo_invoice.png" alt="AI経費精算リーダー デモ：レシートをアップロードするとAIが項目を抽出し、経費精算CSVに変換する" width="720">
+
 1. レシートの画像 / PDF をアップロード（複数可・スマホ写真OK）
 2. 「読み取る」を押すと、AIが項目を抽出して表に表示
 3. 表で確認・修正（勘定科目はドロップダウン、要確認は ⚠️ 表示）
 4. 「経費精算書CSV」をダウンロード
-
-<!-- スクリーンショット / デモGIF は docs/ に追加予定 -->
 
 ## 対象クライアント
 
@@ -71,19 +71,19 @@ ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxx
 
 「Upload」ボタンから選んでも、ファイルを枠内にドラッグ&ドロップしてもアップロードできます。
 
-<img src="docs/screenshot-home.png" alt="起動直後の画面" width="600">
+<img src="docs/screenshot-home.png" alt="起動直後の画面" width="660">
 
 
 **② 〇件を読み取るボタンを押す**
 
-<img src="docs/screenshot-upload.png" alt="ファイルをアップロードした状態" width="600">
+<img src="docs/screenshot-upload.png" alt="ファイルをアップロードした状態" width="660">
 
 
 **③ AIが項目を抽出 → 表で確認・修正**
 
 **④「⬇ CSVをダウンロード」で経費精算書CSVを保存**
 
-<img src="docs/screenshot-result.png" alt="読み取り結果とCSVダウンロード" width="600">
+<img src="docs/screenshot-result.png" alt="読み取り結果とCSVダウンロード" width="660">
 
 ## 注意
 
